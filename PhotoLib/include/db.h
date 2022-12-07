@@ -7,10 +7,11 @@ class DataBase {
 public:
 	DataBase();
 	void ini();
-	void getData();
+	void getDataByPeopleCount();
+	void getDataWithoutPeople();
 	void readDB();
 	void searchTags(std::vector<std::string> tags);
-	void getDbPath();
+	std::string getDbPath();
 private:
 	std::string dbName;
 };
@@ -18,11 +19,9 @@ private:
 class Picture : public DataBase {
 public:
 	Picture();
-	void editPic(std::string Filename, std::string Desc, std::string Location,
-		std::string PeopleCount, std::vector<std::string> tags);
-	void addPic(std::string Filename, std::string Desc, std::string Location,
-		std::string PeopleCount, std::vector<std::string> tags);
-	void removePic(std::string Filename);
+	void editPic();
+	void addPic();
+	void removePic();
 private:
 	std::string Filename, Desc, Location;
 	int PeopleCount;
