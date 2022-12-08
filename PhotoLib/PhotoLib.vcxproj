@@ -129,13 +129,14 @@
   <ItemGroup>
     <ClCompile Include="src\db.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\picture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\backup.csv" />
     <None Include="data\db.csv" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\db.h" />
-    <ClInclude Include="src\picture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

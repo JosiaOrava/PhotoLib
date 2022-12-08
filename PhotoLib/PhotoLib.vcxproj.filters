@@ -21,18 +21,19 @@
     <ClCompile Include="src\db.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\picture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\db.csv">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="data\backup.csv" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\db.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\picture.cpp">
-      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

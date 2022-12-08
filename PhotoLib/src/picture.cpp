@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -24,11 +25,11 @@ void Picture::addPic()
 {
 	std::string tag, path;
 	std::cout << "Filename (with extension (.jpg, .png) etc.): ";
-	std::cin >> Filename;
-	std::cout << "Description for photo:\n";
-	std::cin >> Desc;
+	std::getline(std::cin >> std::ws, Filename);
+	std::cout << "Description for photo:";
+	std::getline(std::cin >> std::ws, Desc);
 	std::cout << "Location: ";
-	std::cin >> Location;
+	std::getline(std::cin >> std::ws, Location);
 	std::cout << "People count: ";
 	std::cin >> PeopleCount;
 	std::cout << "Tags for photo (enter stop to stop adding tags): \n";
@@ -53,4 +54,15 @@ void Picture::removePic()
 {
 	std::cout << "Give filename to remove: ";
 	std::cin >> Filename;
+	std::ifstream myFile;
+	std::string line, path;
+	std::size_t found;
+	path = DataBase::getDbPath();
+	myFile.open(path);
+	while (getline(myFile, line)) {
+		found = line.find(Filename);
+		if (found != std::string::npos) {
+
+		}
+	}
 }

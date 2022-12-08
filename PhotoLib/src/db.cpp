@@ -3,7 +3,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <fstream>
 #include <algorithm>
 #include "../include/db.h"
 
@@ -35,7 +34,6 @@ void DataBase::readDB()
 {
 	std::ifstream myFile;
 	std::string line;
-	int commaCount = 0;
 	myFile.open(dbName);
 	if (!myFile.is_open()) {
 		std::cout << "Error opening file" << std::endl;
@@ -43,10 +41,6 @@ void DataBase::readDB()
 	// Printing out the whole file
 	// TODO: make the formatting prettier
 	while (getline(myFile, line, ',')) {
-		if (commaCount == 5) {
-			std::cout << std::endl;
-			commaCount = 0;
-		}
 		std::cout << std::setw(25) << line;
 	}
 	myFile.close();
