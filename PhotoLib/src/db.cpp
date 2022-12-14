@@ -2,8 +2,6 @@
 #include <iomanip>
 #include <fstream>
 #include <string>
-#include <vector>
-#include <algorithm>
 #include "../include/db.h"
 
 
@@ -41,15 +39,11 @@ void DataBase::readDB()
 	// Printing out the whole file
 	// TODO: make the formatting prettier
 	while (getline(myFile, line, ',')) {
-		std::cout << std::setw(25) << line;
+		std::cout << line << std::setw(30);
 	}
+	std::cout << std::endl;
 	myFile.close();
 	
-}
-
-// TODO: if time, implement tags
-void DataBase::searchTags(std::vector<std::string> tags)
-{
 }
 
 std::string DataBase::getDbPath()

@@ -6,12 +6,11 @@
 class DataBase {
 public:
 	DataBase();
-	void ini();
-	void getDataByPeopleCount();
-	void getDataWithoutPeople();
-	void readDB();
-	void searchTags(std::vector<std::string> tags);
-	std::string getDbPath();
+	void ini(); // DONE
+	void getDataByPeopleCount(); // NEED TO DO
+	void getDataWithoutPeople(); // NEED TO DO
+	void readDB(); // DONE EXEPCT FORMATTING
+	std::string getDbPath(); // DONE
 private:
 	std::string dbName;
 };
@@ -19,9 +18,12 @@ private:
 class Picture : public DataBase {
 public:
 	Picture();
-	void editPic();
-	void addPic();
-	void removePic();
+	void editPic(); // NEED TO DO
+	void addPic(); // DONE
+	void removePic(); // DONE BUT HAS BUG
+	int findLineNumber(std::string Filename); // DONE
+	void askNewEdits(); // GET PREVIOUS INFO
+	void getPreviousInfo(int lineNumber);
 private:
 	std::string Filename, Desc, Location;
 	int PeopleCount;

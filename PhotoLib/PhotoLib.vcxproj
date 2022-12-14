@@ -134,6 +134,7 @@
   <ItemGroup>
     <None Include="data\backup.csv" />
     <None Include="data\db.csv" />
+    <None Include="data\tmp.csv" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\db.h" />
