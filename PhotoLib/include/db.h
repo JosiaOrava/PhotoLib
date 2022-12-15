@@ -2,15 +2,14 @@
 #include <string>
 #include <vector>
 
-
 class DataBase {
 public:
 	DataBase();
-	void ini(); // DONE
-	void getDataByPeopleCount(); // NEED TO DO
-	void getDataWithoutPeople(); // NEED TO DO
-	void readDB(); // DONE EXEPCT FORMATTING
-	std::string getDbPath(); // DONE
+	void ini();
+	void getDataByPeopleCount();
+	void getDataWithoutPeople();
+	void readDB();
+	std::string getDbPath();
 private:
 	std::string dbName;
 };
@@ -18,11 +17,11 @@ private:
 class Picture : public DataBase {
 public:
 	Picture();
-	void editPic(); // NEED TO DO
-	void addPic(); // DONE
-	void removePic(); // DONE BUT HAS BUG
-	int findLineNumber(std::string Filename); // DONE
-	void askNewEdits(); // GET PREVIOUS INFO
+	void editPic();
+	void addPic();
+	void removePic();
+	int findLineNumber(std::string Filename);
+	void askNewEdits();
 	void getPreviousInfo(int lineNumber);
 private:
 	std::string Filename, Desc, Location;

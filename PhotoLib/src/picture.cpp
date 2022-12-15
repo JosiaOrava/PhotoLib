@@ -12,7 +12,6 @@ Picture::Picture() {
 	Desc = "";
 	Location = "";
 	PeopleCount = 0;
-	tags.clear();
 }
 
 void Picture::askNewEdits() {
@@ -54,11 +53,14 @@ void Picture::editPic()
 	int lineCount = 1;
 	int lineNumber = findLineNumber(Filename);
 	std::ifstream input(path);
-	std::ofstream output(path, std::ios::out || std::ios::trunc);
+	std::ofstream output(path, std::ios::app);
 	if (lineNumber == -1) {
 		std::cout << "No such file found." << std::endl;
+		return;
 	}
 	else {
+		// Get info that is alredy there before asking new edits
+		// incase user changes only some info so we dont submit empty data
 		getPreviousInfo(lineNumber);
 		askNewEdits();
 		while (getline(input, line)) {
@@ -66,7 +68,7 @@ void Picture::editPic()
 				output << line << std::endl;
 			}
 			else {
-				output << "\n" <<  Filename << "," << Desc << "," << Location << "," << PeopleCount << ",";
+				output <<  Filename << "," << Desc << "," << Location << "," << PeopleCount << ",";
 			}
 			lineCount++;
 		}
@@ -90,6 +92,10 @@ void Picture::addPic()
 	std::ofstream myFile;
 	path = DataBase::getDbPath();
 	myFile.open(path, std::ios::app);
+	if (!myFile.is_open()) {
+		std::cout << "Error opening file" << std::endl;
+		return;
+	}
 	myFile << "\n" << Filename << ", " << Desc << ", " << Location << ", " << PeopleCount << ", ";
 	myFile.close();
 
@@ -104,9 +110,10 @@ void Picture::removePic()
 	int lineCount = 1;
 	int lineNumber = findLineNumber(Filename);
 	std::ifstream input(path);
-	std::ofstream output(path, std::ios::out || std::ios::trunc);
+	std::ofstream output(path, std::ios::app);
 	if (lineNumber == -1) {
 		std::cout << "No such file found." << std::endl;
+		return;
 	}
 	else {
 		while (getline(input, line)) {
@@ -125,6 +132,8 @@ int Picture::findLineNumber(std::string Filename) {
 	path = DataBase::getDbPath();
 	std::ifstream myFile(path);
 	int lineNumber = 1;
+	// Goes trough file line by line until finding name
+	// if not found, return -1
 	while (getline(myFile, line)) {
 		if (line.find(Filename) != std::string::npos) {
 			return lineNumber;
@@ -141,6 +150,8 @@ void Picture::getPreviousInfo(int lineNumber) {
 	path = DataBase::getDbPath();
 	int lineCount = 1;
 	std::ifstream input(path);
+	// Goes trough file until at the line number we want and saves data that is there
+	// so if user doesen't change all fields, we can put the previous data back
 	while (getline(input, line)) {
 		std::stringstream ss(line);
 		if (lineCount == lineNumber) {
