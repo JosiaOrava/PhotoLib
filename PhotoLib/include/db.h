@@ -14,6 +14,9 @@ private:
 	std::string dbName;
 };
 
+// input operators and remove inheritance and make db handle all file writing
+// fix the infinite loop in edit pic
+//
 class Picture : public DataBase {
 public:
 	Picture();
@@ -26,5 +29,4 @@ public:
 private:
 	std::string Filename, Desc, Location;
 	int PeopleCount;
-	std::vector<std::string> tags;
 };

@@ -37,11 +37,12 @@ void DataBase::getDataByPeopleCount()
 	}
 	std::cout << "Least ammount of people?: ";
 	std::cin >> countOfPeople;
+	// getting the "title" line out before loop
 	getline(myFile, line);
 	getline(myFile2, completeLine);
 	ss.str(line);
 	while (getline(ss, sections, ',')) {
-		std::cout << sections << std::setw(30);
+		std::cout << std::setw(30) << sections ;
 	}
 	std::cout << std::endl;
 	ss.clear();
@@ -54,6 +55,7 @@ void DataBase::getDataByPeopleCount()
 				while (getline(ss,sections, ',')) {
 					std::cout <<std::left<< std::setw(30) << sections;
 				}
+				std::cout << std::endl;
 				ss.clear();
 			}
 			commaCount = 0;
@@ -79,27 +81,24 @@ void DataBase::getDataWithoutPeople()
 	getline(myFile, line);
 	getline(myFile2, completeLine);
 	ss.str(line);
-	while (getline(ss, sections, ',')) {
-		std::cout << std::left << std::setw(30) << sections;
-	}
-	std::cout << std::endl;
+	// getting the title
+	getline(ss, sections, ',');
+	std::cout << sections << std::endl;
 	ss.clear();
+	// goes trough file and marks files that are without people with *
 	while (getline(myFile, line, ',')) {
 		if (commaCount == 4) {
 			getline(myFile2, completeLine);
 			countOfPeople = stoi(line);
 			ss.str(completeLine);
 			if (countOfPeople == 0) {
-				std::cout << "* ";
-				while (getline(ss, sections, ',')) {
-					std::cout << std::left << std::setw(30) << sections;
-				}
+				getline(ss, sections, ',');
+				std::cout << sections << " *" << std::endl;
 				ss.clear();
 			}
 			else {
-				while (getline(ss, sections, ',')) {
-					std::cout << std::left << std::setw(30) << sections;
-				}
+				getline(ss, sections, ',');
+				std::cout << sections << std::endl;
 				ss.clear();
 			}
 			commaCount = 0;
@@ -121,7 +120,7 @@ void DataBase::readDB()
 	}
 	
 	while (getline(myFile, line, ',')) {
-		std::cout << line << std::setw(30);
+		std::cout << std::left << std::setw(30) << line ;
 	}
 	std::cout << std::endl;
 	myFile.close();

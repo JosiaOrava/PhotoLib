@@ -27,15 +27,15 @@ void Picture::askNewEdits() {
 		switch (choice)
 		{
 		case 1:
-			std::cout << "Give new description:";
+			std::cout << "Give new description: ";
 			std::getline(std::cin >> std::ws, Desc);
 			break;
 		case 2:
-			std::cout << "Give new location:";
+			std::cout << "Give new location: ";
 			std::getline(std::cin >> std::ws, Location);
 			break;
 		case 3:
-			std::cout << "Give new people count:" << std::endl;
+			std::cout << "Give new people count: " << std::endl;
 			std::cin >> PeopleCount;
 			break;
 		case 4:
@@ -53,7 +53,7 @@ void Picture::editPic()
 	int lineCount = 1;
 	int lineNumber = findLineNumber(Filename);
 	std::ifstream input(path);
-	std::ofstream output(path, std::ios::app);
+	std::ofstream output(path, std::ios::out || std::ios::trunc);
 	if (lineNumber == -1) {
 		std::cout << "No such file found." << std::endl;
 		return;
@@ -68,7 +68,7 @@ void Picture::editPic()
 				output << line << std::endl;
 			}
 			else {
-				output <<  Filename << "," << Desc << "," << Location << "," << PeopleCount << ",";
+				output << Filename << "," << Desc << "," << Location << "," << PeopleCount << "," << std::endl;;
 			}
 			lineCount++;
 		}
@@ -82,7 +82,7 @@ void Picture::addPic()
 	std::string tag, path;
 	std::cout << "Filename (with extension (.jpg, .png) etc.): ";
 	std::getline(std::cin >> std::ws, Filename);
-	std::cout << "Description for photo:";
+	std::cout << "Description for photo: ";
 	std::getline(std::cin >> std::ws, Desc);
 	std::cout << "Location: ";
 	std::getline(std::cin >> std::ws, Location);
@@ -96,7 +96,7 @@ void Picture::addPic()
 		std::cout << "Error opening file" << std::endl;
 		return;
 	}
-	myFile << "\n" << Filename << ", " << Desc << ", " << Location << ", " << PeopleCount << ", ";
+	myFile << "\n" << Filename << "," << Desc << "," << Location << "," << PeopleCount << ",";
 	myFile.close();
 
 }
@@ -110,7 +110,7 @@ void Picture::removePic()
 	int lineCount = 1;
 	int lineNumber = findLineNumber(Filename);
 	std::ifstream input(path);
-	std::ofstream output(path, std::ios::app);
+	std::ofstream output(path, std::ios::out || std::ios::trunc);
 	if (lineNumber == -1) {
 		std::cout << "No such file found." << std::endl;
 		return;
@@ -131,14 +131,19 @@ int Picture::findLineNumber(std::string Filename) {
 	std::string line, path;
 	path = DataBase::getDbPath();
 	std::ifstream myFile(path);
-	int lineNumber = 1;
+	int lineNumber = 1, commaCount = 1;
 	// Goes trough file line by line until finding name
 	// if not found, return -1
-	while (getline(myFile, line)) {
-		if (line.find(Filename) != std::string::npos) {
+	// commaCount is used to look only the filename and not taking into account for ex. description
+	while (getline(myFile, line, ',')) {
+		if (commaCount == 1 && line.find(Filename) != std::string::npos) {
 			return lineNumber;
 		}
-		lineNumber++;
+		if (commaCount == 4) {
+			commaCount = 0;
+			lineNumber++;
+		}
+		commaCount++;
 	}
 	return -1;
 	myFile.close();
