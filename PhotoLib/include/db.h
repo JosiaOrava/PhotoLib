@@ -10,7 +10,6 @@ public:
 	void getDataWithoutPeople();
 	void readDB();
 	std::string getDbPath();
-	void clearEmptyLines();
 private:
 	std::string dbName;
 };
