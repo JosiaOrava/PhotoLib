@@ -11,6 +11,26 @@ DataBase::DataBase() {
 	dbName = "data/db.csv";
 }
 
+
+void DataBase::clearEmptyLines()
+{
+	std::string line;
+	std::ifstream myFile;
+	std::ofstream output;
+	myFile.open(dbName);
+	output.open(dbName, std::ios::out || std::ios::trunc);
+	if (!myFile.is_open()) {
+		std::cout << "Error initing file" << std::endl;
+		return;
+	}
+	while (getline(myFile, line)) {
+		if (line != "\n") {
+			output << line << std::endl;
+		}
+	}
+	myFile.close();
+	output.close();
+}
 void DataBase::ini() {
 	std::ofstream myFile;
 	myFile.open(dbName);

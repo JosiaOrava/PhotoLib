@@ -14,6 +14,14 @@ Picture::Picture() {
 	PeopleCount = 0;
 }
 
+std::ostream& operator<<(std::ostream& out, const std::vector<std::string> v)
+{
+	for (auto x : v) {
+		out << x << ",";
+	}
+	return out;
+}
+
 void Picture::askNewEdits() {
 	bool state = true;
 	int choice;
@@ -46,14 +54,18 @@ void Picture::askNewEdits() {
 
 void Picture::editPic()
 {
-	std::cout << "Give filename to edit: ";
-	std::cin >> Filename;
 	std::string line, path;
+	std::stringstream ss;
 	path = DataBase::getDbPath();
-	int lineCount = 1;
-	int lineNumber = findLineNumber(Filename);
 	std::ifstream input(path);
 	std::ofstream output(path, std::ios::out || std::ios::trunc);
+	int lineCount = 1;
+
+	std::cout << "Give filename to edit: ";
+	std::cin >> Filename;
+	
+	int lineNumber = findLineNumber(Filename);
+	
 	if (lineNumber == -1) {
 		std::cout << "No such file found." << std::endl;
 		return;
@@ -63,12 +75,15 @@ void Picture::editPic()
 		// incase user changes only some info so we dont submit empty data
 		getPreviousInfo(lineNumber);
 		askNewEdits();
+		ss << PeopleCount;
+		std::string str = ss.str();
+		info.insert(info.end(), { Filename, Desc, Location, str });
 		while (getline(input, line)) {
 			if (lineCount != lineNumber) {
 				output << line << std::endl;
 			}
 			else {
-				output << Filename << "," << Desc << "," << Location << "," << PeopleCount << "," << std::endl;;
+				output << info << "\n";
 			}
 			lineCount++;
 		}
@@ -96,7 +111,11 @@ void Picture::addPic()
 		std::cout << "Error opening file" << std::endl;
 		return;
 	}
-	myFile << "\n" << Filename << "," << Desc << "," << Location << "," << PeopleCount << ",";
+	std::stringstream ss;
+	ss << PeopleCount;
+	std::string str = ss.str();
+	info.insert(info.end(), { Filename, Desc, Location, str });
+	myFile << "\n" << info;
 	myFile.close();
 
 }

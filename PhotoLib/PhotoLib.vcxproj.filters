@@ -30,6 +30,7 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="data\backup.csv" />
+    <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\db.h">

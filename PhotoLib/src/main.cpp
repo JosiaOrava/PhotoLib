@@ -25,9 +25,11 @@ int main() {
 				break;
 			case 2:
 				pic.removePic();
+				db.clearEmptyLines();
 				break;
 			case 3:
 				pic.editPic();
+				db.clearEmptyLines();
 				break;
 			case 4:
 				db.readDB();
